@@ -101,70 +101,41 @@ class Windows(QtWidgets.QMainWindow):
         b1.move(620, 640)
         self.setWindowTitle('Weather Forecast')
 
-        periods1 = QtWidgets.QLabel(df['period'][0], self)
-        periods1.move(100, 200)
-        periods2 = QtWidgets.QLabel(df['period'][1], self)
-        periods2.move(250, 200)
-        periods3 = QtWidgets.QLabel(df['period'][2], self)
-        periods3.move(400, 200)
-        periods4 = QtWidgets.QLabel(df['period'][3], self)
-        periods4.move(550, 200)
-        periods5 = QtWidgets.QLabel(df['period'][4], self)
-        periods5.move(700, 200)
-        periods6 = QtWidgets.QLabel(df['period'][5], self)
-        periods6.move(850, 200)
-        periods7 = QtWidgets.QLabel(df['period'][6], self)
-        periods7.move(1000, 200)
-        periods8 = QtWidgets.QLabel(df['period'][7], self)
-        periods8.move(1150, 200)
+        self.pd =[]
+        for i in range(0,8):
+            self.pd.append(QtWidgets.QLabel(df['period'][i], self))
+            self.pd[i].move(100 + (i * 150), 200)
 
-        temp1 = QtWidgets.QLabel(df['temperature'][0], self)
-        temp1.setFont(QtGui.QFont('Times New Roman', 16))
-        temp1.move(100, 300)
-        temp2 = QtWidgets.QLabel(df['temperature'][1], self)
-        temp2.setFont(QtGui.QFont('Times New Roman', 16))
-        temp2.move(250, 300)
-        temp3 = QtWidgets.QLabel(df['temperature'][2], self)
-        temp3.setFont(QtGui.QFont('Times New Roman', 16))
-        temp3.move(400, 300)
-        temp4 = QtWidgets.QLabel(df['temperature'][3], self)
-        temp4.setFont(QtGui.QFont('Times New Roman', 16))
-        temp4.move(550, 300)
-        temp5 = QtWidgets.QLabel(df['temperature'][4], self)
-        temp5.setFont(QtGui.QFont('Times New Roman', 16))
-        temp5.move(700, 300)
-        temp6 = QtWidgets.QLabel(df['temperature'][5], self)
-        temp6.setFont(QtGui.QFont('Times New Roman', 16))
-        temp6.move(850, 300)
-        temp7 = QtWidgets.QLabel(df['temperature'][6], self)
-        temp7.setFont(QtGui.QFont('Times New Roman', 18))
-        temp7.move(1000, 300)
-        temp8 = QtWidgets.QLabel(df['temperature'][7], self)
-        temp8.setFont(QtGui.QFont('Times New Roman', 16))
-        temp8.move(1150, 300)
 
-        sd1 = QtWidgets.QLabel(df['short_desc'][0], self)
-        sd1.move(100, 500)
-        sd2 = QtWidgets.QLabel(df['short_desc'][1], self)
-        sd2.move(250, 500)
-        sd3 = QtWidgets.QLabel(df['short_desc'][2], self)
-        sd3.move(400, 500)
-        sd4 = QtWidgets.QLabel(df['short_desc'][3], self)
-        sd4.move(550, 500)
-        sd5 = QtWidgets.QLabel(df['short_desc'][4], self)
-        sd5.move(700, 500)
-        sd6 = QtWidgets.QLabel(df['short_desc'][5], self)
-        sd6.move(850, 500)
-        sd7 = QtWidgets.QLabel(df['short_desc'][6], self)
-        sd7.move(1000, 500)
-        sd8 = QtWidgets.QLabel(df['short_desc'][7], self)
-        sd8.move(1150, 500)
+        self.temp = []
+        for i in range(0,8):
+            self.temp.append(QtWidgets.QLabel(df['temperature'][i], self))
+            self.temp[i].setFont(QtGui.QFont('Times New Roman', 16))
+            self.temp[i].move(100+(i*150), 300)
+
+
+        self.sd = []
+        self.pic = []
+        for i in range(0,8):
+            self.sd.append(QtWidgets.QLabel(df['short_desc'][i], self))
+            self.sd[i].move(100+(i*150), 550)
+            self.pic.append(QtWidgets.QLabel(self))
+            if "Cloudy" in df['short_desc'][i]:
+                self.pic[i].setPixmap(QtGui.QPixmap('cloudy.png'))
+
+            else:
+                if "Rainy" in df['short_desc'][i]:
+
+                    self.pic[i].setPixmap(QtGui.QPixmap('rainy.png'))
+                else:
+                    if "Sunny" in df['short_desc'][i]:
+                        self.pic[i].setPixmap(QtGui.QPixmap('sunny.png'))
+            self.pic[i].move(60 + (i * 150), 400)
+            self.pic[i].resize(130,130)
+
+
         b1.clicked.connect(QtCore.QCoreApplication.instance().quit)
 
-        p1 = QtWidgets.QLabel(self)
-        p1.setPixmap(QtGui.QPixmap('cloudy.png'))
-        p1.move(850,400)
-        p1.resize(200,200)
         self.showMaximized()
 
 
